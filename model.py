@@ -43,3 +43,23 @@ model.compile(optimizer = tf.keras.optimizers.Adam(),
               loss = tf.keras.losses.SparseCategoricalCrossentropy(),
               metrics=[tf.keras.metrics.SparseCategoricalAccuracy()])
 model.fit(ds_train, epochs=5)
+
+
+# Save the entire model as a SavedModel.
+model.save('saved_model')
+
+# Reload a fresh Keras model from the saved model
+new_model = tf.keras.models.load_model('saved_model')
+
+# Summary of loaded SavedModel
+new_model.summary()
+
+
+# Save the entire model to a HDF5 file.
+model.save('my_model.h5')
+
+# Recreate the exact same model, including its weights and the optimizer
+new_model_h5 = tf.keras.models.load_model('my_model.h5')
+
+# Summary of loaded h5 model
+new_model_h5.summary()
